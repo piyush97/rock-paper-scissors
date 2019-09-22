@@ -1,6 +1,6 @@
 # Rock Paper Scissor
+## A web application game which would make us remember our schooldays!!
 ![RPS DEMO](https://github.com/tusharmittal18/rock-paper-scissors/blob/master/ss/rps.png)
-##A web application game which would make us remember our <strong>schooldays</strong>!!
 # Contents:
 * <a href="#Playing">How to play the game on your local system</a>
 * <a href="#Description">Description</a>
