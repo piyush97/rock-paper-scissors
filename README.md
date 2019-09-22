@@ -1,23 +1,23 @@
 # Rock Paper Scissor
 ![RPS DEMO](https://github.com/tusharmittal18/rock-paper-scissors/blob/master/ss/rps.png)
-A web application game which would make us remember our <strong>schooldays</strong>!!
+##A web application game which would make us remember our <strong>schooldays</strong>!!
 # Contents:
 * <a href="#Playing">How to play the game on your local system</a>
 * <a href="#Description">Description</a>
 
 
 <h2 id="Playing">How to play the game on your local sysytem</h2>
-###1. <strong>Clone the repository</strong> or <strong>download</strong> the zip file<br>
-###2. After cloning or extracting, <strong>open</strong>rock-paper-scissors\index.html" in any browser on your PC.<br>
-###3. Enjoy the game. :smiley:
+### 1. <strong>Clone the repository</strong> or <strong>download</strong> the zip file<br>
+### 2. After cloning or extracting, <strong>open</strong>rock-paper-scissors\index.html" in any browser on your PC.<br>
+### 3. Enjoy the game. :smiley:
 
 <h2 id="Description">Description</h2>
-###* This is a Rock–paper–scissors game where you will have to choose the three options 'rock', 'paper' , 'scissors' and you can do so by selecting one of the buttons in green color.
-###* After your selection automatically computer will also select one choice out of these three.
-###* Now comes the FUN part.
-###* Rock beats scissors.
-###* Paper beats rock.
-###* Scissors beats paper.
+### * This is a Rock–paper–scissors game where you will have to choose the three options 'rock', 'paper' , 'scissors' and you can do so by selecting one of the buttons in green color.
+### * After your selection automatically computer will also select one choice out of these three.
+### * Now comes the FUN part.
+### * Rock beats scissors.
+### * Paper beats rock.
+### * Scissors beats paper.
 ![Game Instructions](https://github.com/tusharmittal18/rock-paper-scissors/blob/master/ss/rps-demo.png)
 
 
