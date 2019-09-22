@@ -25,7 +25,31 @@ section {
   padding: 10px;
   font-size: 25px;
 }
-
+.score .gameOf h2{
+  margin: auto;
+  text-align: center;
+  padding-bottom: 12px;
+}
+#reset{
+  padding-top: 12px;
+  margin: auto;
+  border: none;
+  background: none;
+  height: 100%;
+  color: rgb(224, 224, 224);
+  text-align: center;
+  display: flex;
+  font-weight: 700;
+  letter-spacing: 1;
+  font-size: 35px;
+  outline: none;
+}
+input{
+  font-size: 25px;
+  width: 100%;
+  padding: 7px 7px 7px 20px;
+  box-sizing: border-box; 
+}
 .intro {
   color: rgb(224, 224, 224);
   height: 50vh;
