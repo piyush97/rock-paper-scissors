@@ -81,6 +81,7 @@ const game = () => {
           gameover = true;
           hscore.classList.add("fadeIn");
           if (pScore>cScore) {
+            hscore.innerHTML = "";
             const oldScore = getCookie();
             if (oldScore=="") {
               hscore.appendChild(document.createTextNode("Congratulations, you have set a new record of " + pScore "."));
