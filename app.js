@@ -9,8 +9,8 @@ const game = () => {
     const match = document.querySelector(".match");
 
     playBtn.addEventListener("click", () => {
-      score.classList.add("fadeIn");
       introScreen.classList.add("fadeOut");
+      score.classList.add("fadeIn");
       match.classList.add("fadeIn");
     });
   };
@@ -23,16 +23,25 @@ const game = () => {
     const hands = document.querySelectorAll(".hands img");
     const winningScoreDisplay = document.querySelector("#numInput");
     const resetButton = document.querySelector("#reset");
+    const hscore = document.querySelector(".hscore");
     const gameover = false;
     let winningScore = 5;
 
     input.addEventListener("change", function(){
+      hscore.classList.add("fadeOut");
+      hscore.innerHTML = "";
+      playerHand.src = `./assets/rock.png`;
+      computerHand.src = `./assets/rock.png`;
       winningScoreDisplay.textContent = this.value;
       winningScore = Number(this.value);
       reset();
     });
 
     resetButton.addEventListener("click", function(){
+      hscore.classList.add("fadeOut");
+      hscore.innerHTML = "";
+      playerHand.src = `./assets/rock.png`;
+      computerHand.src = `./assets/rock.png`;
       reset();
     });
 
@@ -44,23 +53,22 @@ const game = () => {
     });
     //Computer Options
     const computerOptions = ["rock", "paper", "scissors"];
-    
+
     options.forEach(option => {
       option.addEventListener("click", function() {
         //Computer Choice
         const computerNumber = Math.floor(Math.random() * 3);
         const computerChoice = computerOptions[computerNumber];
 
-        if(pScore == winningScore || cScore == winningScore){
-            gameover = true;
-            console.log("Hey");
+        if(pScore == winningScore || cScore == winningScore) {
+          gameover = true;
         }
         setTimeout(() => {
-          //Here is where we call compare hands
-          compareHands(this.textContent, computerChoice);
           //Update Images
           playerHand.src = `./assets/${this.textContent}.png`;
           computerHand.src = `./assets/${computerChoice}.png`;
+          //Here is where we call compare hands
+          compareHands(this.textContent, computerChoice);
         }, 2000);
         //Animation
         playerHand.style.animation = "shakePlayer 2s ease";
@@ -78,12 +86,25 @@ const game = () => {
     document.querySelector(".winner").textContent = "Choose an Option";
   }
   const updateScore = () => {
+    const inp = document.querySelector("input").value;
+    const hscore = document.querySelector(".hscore");
     const playerScore = document.querySelector(".player-score p");
     const computerScore = document.querySelector(".computer-score p");
     playerScore.textContent = pScore;
     computerScore.textContent = cScore;
     playerScore.classList.remove("selected");
     computerScore.classList.remove("selected");
+    hscore.classList.add("fadeIn");
+    hscore.innerHTML = "";
+    if (pScore == inp || cScore == inp) {
+      if (pScore>cScore) {
+        hscore.appendChild(document.createTextNode(`Congratulations, you have beaten the computer by ${pScore-cScore}.`));
+      }
+      else {
+        hscore.appendChild(document.createTextNode("Better luck next time!"));
+      }
+    }
+
   };
 
   const compareHands = (playerChoice, computerChoice) => {
