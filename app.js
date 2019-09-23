@@ -9,8 +9,8 @@ const game = () => {
     const match = document.querySelector(".match");
 
     playBtn.addEventListener("click", () => {
-      score.classList.add("fadeIn");
       introScreen.classList.add("fadeOut");
+      score.classList.add("fadeIn");
       match.classList.add("fadeIn");
     });
   };
@@ -54,13 +54,14 @@ const game = () => {
         if(pScore == winningScore || cScore == winningScore){
             gameover = true;
             console.log("Hey");
+            
         }
         setTimeout(() => {
-          //Here is where we call compare hands
-          compareHands(this.textContent, computerChoice);
           //Update Images
           playerHand.src = `./assets/${this.textContent}.png`;
           computerHand.src = `./assets/${computerChoice}.png`;
+          //Here is where we call compare hands
+          compareHands(this.textContent, computerChoice);
         }, 2000);
         //Animation
         playerHand.style.animation = "shakePlayer 2s ease";
