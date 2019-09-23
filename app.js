@@ -1,27 +1,3 @@
-const setCookie = (cvalue) => {
-  let d = new Date();
-  d.setTime(d.getTime() + (30*24*60*60*1000));
-  let expires = "expires=" + d.toGMTString();
-  const cname = "hscore";
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-const getCookie = () => {
-  let name = "hscore=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-  for(let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-
 const game = () => {
   let pScore = 0;
   let cScore = 0;
@@ -52,14 +28,21 @@ const game = () => {
     let winningScore = 5;
 
     input.addEventListener("change", function(){
+      hscore.classList.add("fadeOut");
+      hscore.innerHTML = "";
+      playerHand.src = `./assets/rock.png`;
+      computerHand.src = `./assets/rock.png`;
       winningScoreDisplay.textContent = this.value;
       winningScore = Number(this.value);
       reset();
     });
 
     resetButton.addEventListener("click", function(){
-      reset();
       hscore.classList.add("fadeOut");
+      hscore.innerHTML = "";
+      playerHand.src = `./assets/rock.png`;
+      computerHand.src = `./assets/rock.png`;
+      reset();
     });
 
     if(!gameover){
@@ -70,7 +53,7 @@ const game = () => {
     });
     //Computer Options
     const computerOptions = ["rock", "paper", "scissors"];
-    
+
     options.forEach(option => {
       option.addEventListener("click", function() {
         //Computer Choice
@@ -79,25 +62,6 @@ const game = () => {
 
         if(pScore == winningScore || cScore == winningScore) {
           gameover = true;
-          hscore.classList.add("fadeIn");
-          if (pScore>cScore) {
-            hscore.innerHTML = "";
-            const oldScore = getCookie();
-            if (oldScore=="") {
-              hscore.appendChild(document.createTextNode("Congratulations, you have set a new record of " + pScore "."));
-              setCookie(pScore);
-            }
-            else if (oldScore<pScore) {
-              hscore.appendChild(document.createTextNode("Congratulations, you have broken your own record of " + oldScore "."));
-              setCookie(pScore);
-            }
-            else {
-              hscore.appendChild(document.createTextNode("You were " + pScore-oldScore + " points away from breaking your own record."));
-            }
-          }
-          else {
-            hscore.appendChild(document.createTextNode("Better luck next time!"));
-          }
         }
         setTimeout(() => {
           //Update Images
@@ -122,12 +86,25 @@ const game = () => {
     document.querySelector(".winner").textContent = "Choose an Option";
   }
   const updateScore = () => {
+    const inp = document.querySelector("input").value;
+    const hscore = document.querySelector(".hscore");
     const playerScore = document.querySelector(".player-score p");
     const computerScore = document.querySelector(".computer-score p");
     playerScore.textContent = pScore;
     computerScore.textContent = cScore;
     playerScore.classList.remove("selected");
     computerScore.classList.remove("selected");
+    hscore.classList.add("fadeIn");
+    hscore.innerHTML = "";
+    if (pScore == inp || cScore == inp) {
+      if (pScore>cScore) {
+        hscore.appendChild(document.createTextNode(`Congratulations, you have beaten the computer by ${pScore-cScore}.`));
+      }
+      else {
+        hscore.appendChild(document.createTextNode("Better luck next time!"));
+      }
+    }
+
   };
 
   const compareHands = (playerChoice, computerChoice) => {
