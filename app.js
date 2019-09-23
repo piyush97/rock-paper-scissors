@@ -1,3 +1,27 @@
+const setCookie = (cvalue) => {
+  let d = new Date();
+  d.setTime(d.getTime() + (30*24*60*60*1000));
+  let expires = "expires=" + d.toGMTString();
+  const cname = "hscore";
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+const getCookie = () => {
+  let name = "hscore=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
 const game = () => {
   let pScore = 0;
   let cScore = 0;
@@ -23,6 +47,7 @@ const game = () => {
     const hands = document.querySelectorAll(".hands img");
     const winningScoreDisplay = document.querySelector("#numInput");
     const resetButton = document.querySelector("#reset");
+    const hscore = document.querySelector(".hscore");
     const gameover = false;
     let winningScore = 5;
 
@@ -34,6 +59,7 @@ const game = () => {
 
     resetButton.addEventListener("click", function(){
       reset();
+      hscore.classList.add("fadeOut");
     });
 
     if(!gameover){
@@ -51,10 +77,26 @@ const game = () => {
         const computerNumber = Math.floor(Math.random() * 3);
         const computerChoice = computerOptions[computerNumber];
 
-        if(pScore == winningScore || cScore == winningScore){
-            gameover = true;
-            console.log("Hey");
-            
+        if(pScore == winningScore || cScore == winningScore) {
+          gameover = true;
+          hscore.classList.add("fadeIn");
+          if (pScore>cScore) {
+            const oldScore = getCookie();
+            if (oldScore=="") {
+              hscore.appendChild(document.createTextNode("Congratulations, you have set a new record of " + pScore "."));
+              setCookie(pScore);
+            }
+            else if (oldScore<pScore) {
+              hscore.appendChild(document.createTextNode("Congratulations, you have broken your own record of " + oldScore "."));
+              setCookie(pScore);
+            }
+            else {
+              hscore.appendChild(document.createTextNode("You were " + pScore-oldScore + " points away from breaking your own record."));
+            }
+          }
+          else {
+            hscore.appendChild(document.createTextNode("Better luck next time!"));
+          }
         }
         setTimeout(() => {
           //Update Images
